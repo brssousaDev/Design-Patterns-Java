@@ -1,27 +1,28 @@
 package simple;
 
-import java.time.LocalTime;
-import java.util.Date;
-import java.util.Timer;
-
 import static java.time.LocalTime.now;
 
 public class GeraRelatorioProxy implements ProxyInterface{
 
-    private static String relatorio;
+    private static String usuario;
+
+    public GeraRelatorioProxy(String usuario) {
+        this.usuario = usuario;
+        System.out.println("[Proxy] Criando instância do Proxy em: " + now());
+    }
 
     @Override
-    public void execute() {
+    public void readReport() {
 
-        System.out.println(now());
-        if(relatorio == null){
-            var classeReal = new GeraRelatorioReal();
-            classeReal.execute();
-            relatorio = classeReal.getRelatorio();
+        System.out.println("[Proxy] Iniciando Leitura do relatório em: " + now());
+
+        if (usuario != null && usuario.equals("admin")) {
+            var relatorioReal = new GeraRelatorioReal();
+            relatorioReal.readReport();
         } else {
-            System.out.println(relatorio);
+            System.out.println("Acesso negado! Usuário não autorizado.");
         }
-        System.out.println(now());
 
+        System.out.println("[Proxy] Finalizando Leitura do relatório em: " + now());
     }
 }
