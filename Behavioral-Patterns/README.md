@@ -1,1 +1,1 @@
-# Design-Patterns-Java
+# Behavioral Design-Patterns
